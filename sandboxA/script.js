@@ -11,10 +11,9 @@ function addDate() {
 }
 
 function addCounter() {
-    console.log(this);
-    let count = +this.innerHTML;
+    let count = +self.innerHTML;
     count += 2;
-    this.innerHTML = count;
+    self.innerHTML = count;
     localStorage.count = count;
 }
 
@@ -25,5 +24,20 @@ function clearStorage() {
 
 let counter = document.querySelector('#count');
 
-localStorage.count ? (counter.innerHTML = localStorage.count) : 0;
-counter.addEventListener('click', addCounter);
+localStorage.count ? (counter.innerHTML = localStorage.count) : localStorage.setItem('count', 0);
+counter.addEventListener('click', function yo() {
+    self = this;
+    addCounter();
+    addDate();
+});
+
+function privateTest() {
+    let funcOne = () => 1;
+
+    let funcTwo = () => {
+        console.log(funcOne());
+        return 2;
+    };
+
+    return { funcTwo };
+}
