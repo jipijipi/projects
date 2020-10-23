@@ -9,15 +9,17 @@ let gameBoard = (() => {
         board.push(subArray);
     }
 
+    document.querySelector('#reset').addEventListener('click', drawBoard);
+
     return { board, boardSize };
 })();
 
 //test case
-gameBoard.board = [
+/* gameBoard.board = [
     [1, 1, 2],
-    [1, 2, 1],
+    [1, 0, 1],
     [2, 0, 1],
-];
+]; */
 
 //check solutions
 
@@ -78,16 +80,57 @@ let game = (() => {
 
 // game display
 
-let drawBoard = () => {
-    numberOfSquares = gameBoard.boardSize ** 2;
+function drawBoard() {
+    boardSize = gameBoard.boardSize;
     let gameSpace = document.querySelector('#game');
 
-    for (let i = 0; i < numberOfSquares; i++) {
-        let square = document.createElement('button');
-        square.className = 'square';
-        square.innerText = '.';
-        gameSpace.append(square);
+    for (let i = 0; i < boardSize; i++) {
+        for (let j = 0; j < boardSize; j++) {
+            let square = document.createElement('button');
+            square.className = 'square';
+            square.setAttribute('row', i);
+            square.setAttribute('column', j);
+            // square.innerText = '.';
+            gameSpace.append(square);
+        }
     }
-};
+}
 
 drawBoard();
+
+//player
+
+let playerOne = {
+    name: 1,
+    color: '#ffdce2',
+};
+let playerTwo = {
+    name: 2,
+    color: '#c3e7e2',
+};
+
+let playerOneTurn = true;
+
+let currentPlayer = () => {
+    let name = playerOneTurn ? playerOne.name : playerTwo.name;
+    let color = playerOneTurn ? playerOne.color : playerTwo.color;
+    return { name, color };
+};
+
+function updateSquare() {
+    let x = this.getAttribute('row');
+    let y = this.getAttribute('column');
+
+    if (gameBoard.board[x][y] === 0) {
+        gameBoard.board[x][y] = currentPlayer().name;
+        this.style.backgroundColor = currentPlayer().color;
+        playerOneTurn = !playerOneTurn;
+    }
+
+    console.log(game.checkArray());
+}
+
+//
+
+let squares = document.querySelectorAll('.square');
+squares.forEach((x) => x.addEventListener('click', updateSquare));

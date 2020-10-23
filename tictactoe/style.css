@@ -1,6 +1,17 @@
 body {
     text-align: center;
 }
+
+button {
+    border: 1px solid white;
+
+    cursor: pointer;
+}
+
+button:focus {
+    outline: 0;
+}
+
 #game {
     display: flex;
     flex-wrap: wrap;
