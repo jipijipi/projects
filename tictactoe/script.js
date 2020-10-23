@@ -2,12 +2,29 @@
 
 let gameBoard = (() => {
     let boardSize = 3;
-    const board = [];
+    let board = [];
 
-    for (let i = 0; i < boardSize; i++) {
-        let subArray = new Array(boardSize).fill(0);
-        board.push(subArray);
+    function drawBoard() {
+        board.length = 0;
+        let gameSpace = document.querySelector('#game');
+        gameSpace.innerHTML = '';
+
+        for (let i = 0; i < boardSize; i++) {
+            let rowArr = [];
+            for (let j = 0; j < boardSize; j++) {
+                rowArr.push(0);
+                let square = document.createElement('button');
+                square.className = 'square';
+                square.setAttribute('row', i);
+                square.setAttribute('column', j);
+                square.addEventListener('click', updateSquare);
+                gameSpace.append(square);
+            }
+            board.push(rowArr);
+        }
     }
+
+    drawBoard();
 
     document.querySelector('#reset').addEventListener('click', drawBoard);
 
@@ -80,24 +97,6 @@ let game = (() => {
 
 // game display
 
-function drawBoard() {
-    boardSize = gameBoard.boardSize;
-    let gameSpace = document.querySelector('#game');
-
-    for (let i = 0; i < boardSize; i++) {
-        for (let j = 0; j < boardSize; j++) {
-            let square = document.createElement('button');
-            square.className = 'square';
-            square.setAttribute('row', i);
-            square.setAttribute('column', j);
-            // square.innerText = '.';
-            gameSpace.append(square);
-        }
-    }
-}
-
-drawBoard();
-
 //player
 
 let playerOne = {
@@ -125,12 +124,6 @@ function updateSquare() {
         gameBoard.board[x][y] = currentPlayer().name;
         this.style.backgroundColor = currentPlayer().color;
         playerOneTurn = !playerOneTurn;
+        console.log(game.checkArray());
     }
-
-    console.log(game.checkArray());
 }
-
-//
-
-let squares = document.querySelectorAll('.square');
-squares.forEach((x) => x.addEventListener('click', updateSquare));
