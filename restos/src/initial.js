@@ -1,3 +1,5 @@
+let pageContent = document.querySelector('#content');
+
 function initialPage() {
     let mainImg = 'https://upload.wikimedia.org/wikipedia/commons/thumb/8/82/Wide_angle_tetons.jpg/1280px-Wide_angle_tetons.jpg';
     let pageTitle = 'Mamma Mia Lemmego';
@@ -7,8 +9,6 @@ function initialPage() {
 <h1>${pageTitle}</h1>
 <p>${introParagraph}</p>
 `;
-
-    const pageContent = document.querySelector('#content');
     pageContent.innerHTML = pageStructure;
 }
 

@@ -1,0 +1,18 @@
+a {
+    /* margin: 10px; */
+    margin-bottom: 20px;
+    box-sizing: content-box;
+    padding: 10px;
+    text-decoration: none;
+    border: 1px solid lightpink;
+    border-collapse: collapse;
+}
+
+nav {
+    margin: 20px 0;
+}
+
+.active {
+    background-color: lightpink;
+    color: white;
+}
