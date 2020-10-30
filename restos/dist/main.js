@@ -1,1 +1,1 @@
-console.log("fack");
+(()=>{"use strict";console.log("fack"),document.querySelector("#content").innerHTML='<img src="https://upload.wikimedia.org/wikipedia/commons/thumb/8/82/Wide_angle_tetons.jpg/1280px-Wide_angle_tetons.jpg" alt="">\n<h1>Mamma Mia Lemmego</h1>\n<p>Welcome to the best restaurant experience this side of the styx !</p>\n',document.querySelector("#content").insertAdjacentHTML("beforeend",'\n  <a href="#1" id="tab1">presentation</a>\n  <a href="#2" id="tab2">menu</a>\n  <a href="#3" id="tab3">contact</a>\n')})();
