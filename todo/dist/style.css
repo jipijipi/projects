@@ -1,0 +1,21 @@
+#content {
+    display: flex;
+    justify-content: center;
+}
+
+.todo-wrapper {
+    max-width: 32%;
+    flex-grow: 1;
+}
+
+.todo-list {
+    margin: 0;
+    padding: 0;
+    border: 1px solid black;
+    list-style-type: none;
+}
+
+.todo-item {
+    border: 1px solid black;
+    padding: 5px;
+}
