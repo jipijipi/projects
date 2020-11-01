@@ -1,21 +1,45 @@
 #content {
     display: flex;
     justify-content: center;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    color: lightslategray;
+    flex-wrap: wrap;
 }
 
 .todo-wrapper {
     max-width: 32%;
+    margin: 0 1%;
     flex-grow: 1;
 }
 
-.todo-list {
-    margin: 0;
+.todo-wrapper > ul {
+    margin: 15px 0;
     padding: 0;
-    border: 1px solid black;
     list-style-type: none;
 }
 
-.todo-item {
-    border: 1px solid black;
-    padding: 5px;
+.todo-wrapper > ul > li {
+    border-bottom: 1px solid rgb(185, 185, 185);
+    padding: 15px;
+}
+
+.todo-wrapper > ul > li:last-child {
+    border: 0;
+    user-select: none;
+}
+
+.todo-wrapper > ul > li:hover {
+    background-color: rgb(255, 221, 226);
+    color: rgb(65, 64, 64);
+    cursor: pointer;
+}
+
+h3 {
+    text-transform: uppercase;
+}
+
+.completed {
+    text-decoration: line-through;
+    color: rgb(177, 177, 177);
+    font-style: italic;
 }
