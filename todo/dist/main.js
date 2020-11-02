@@ -31,18 +31,6 @@ let projects = {
     ],
 };
 
-function createItem(description, dueDate, priority) {
-    return { description, dueDate, priority };
-}
-
-function addItem() {
-    let description = prompt('description');
-    let dueDate = prompt('Date de fin');
-    let priority = prompt('prio? (0 à 3)');
-
-    this.push(createItem(description, dueDate, priority));
-}
-
 //DOM shit
 
 //add projects
@@ -52,42 +40,72 @@ function addProjects() {
     content.innerHTML = '';
 
     let projectList = Object.entries(projects);
+    let projectNames = Object.keys(projects);
 
     for (let [projectName, items] of projectList) {
         let itemBlock = document.createElement('ul');
 
         //create item block
         for (let item of items) {
-            console.log(item, item['description']);
             let itemLine = document.createElement('li');
 
             itemLine.append(item['description']);
-            console.log(itemLine);
             itemBlock.append(itemLine);
-            console.log(itemBlock);
         }
+
+        console.log({ projectName });
+        console.log(projectNames.indexOf(projectName));
+
+        //add input
+        itemBlock.append(document.createElement('input'));
 
         //create and populate projects
         let projectTemplate = `
-        <div class="todo-wrapper" js-project-id=${projectList.indexOf(projectName)}>
+        <div class="todo-wrapper" js-project-id=${projectNames.indexOf(projectName)}>
           <h3>${projectName}</h3>
           ${itemBlock.outerHTML}
-        <button>test</button>
+        <button class="js-add-item">add</button>
         </div>`;
 
         content.insertAdjacentHTML('beforeend', projectTemplate);
     }
+
     addEvents();
 }
 
 addProjects();
 
-//strike out
+//find current project number
+function currentProjectId() {
+    let currentElement = this;
+    let currentProject = currentElement.closest('div[js-project-id]');
+    console.log(currentProject.getAttribute('js-project-id'));
+    return currentProject.getAttribute('js-project-id');
+}
+function inputToProjects() {
+    let projectId = currentProjectId();
+    let currentProject = document.querySelector(`div[js-project-id=${projectId}]`);
+    console.log(currentProject);
+}
+
+//events
+
 function addEvents() {
+    //add to projects
+
+    let addButtons = document.querySelectorAll('.js-add-item');
+    addButtons.forEach((x) => x.addEventListener('click', currentProjectId));
+
+    //strike out
+
     function strikeItem() {
         this.classList.toggle('completed');
     }
 
     let listItems = document.querySelectorAll('.todo-wrapper > ul > li');
     listItems.forEach((x) => x.addEventListener('click', strikeItem));
+
+    //input
+
+    function createItem() {}
 }
