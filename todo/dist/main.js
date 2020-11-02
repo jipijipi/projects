@@ -76,12 +76,17 @@ function addProjects() {
 addProjects();
 
 //find current project number
-function currentProjectId() {
-    let currentElement = this;
-    let currentProject = currentElement.closest('div[js-project-id]');
-    console.log(currentProject.getAttribute('js-project-id'));
-    return currentProject.getAttribute('js-project-id');
-}
+let getData = (() => {
+    function currentProjectId() {
+        let currentElement = this;
+        console.log(this);
+        let currentProject = currentElement.closest('div[js-project-id]');
+        console.log(currentProject.getAttribute('js-project-id'));
+        return currentProject.getAttribute('js-project-id');
+    }
+    return { currentProjectId };
+})();
+
 function inputToProjects() {
     let projectId = currentProjectId();
     let currentProject = document.querySelector(`div[js-project-id=${projectId}]`);
@@ -94,7 +99,7 @@ function addEvents() {
     //add to projects
 
     let addButtons = document.querySelectorAll('.js-add-item');
-    addButtons.forEach((x) => x.addEventListener('click', currentProjectId));
+    addButtons.forEach((x) => x.addEventListener('click', () => getData.currentProjectId()));
 
     //strike out
 
