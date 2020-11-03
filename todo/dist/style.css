@@ -1,15 +1,26 @@
 #content {
+    width: 80%;
+    margin: 0 auto;
     display: flex;
-    justify-content: center;
+    justify-content: space-between;
     font-family: Verdana, Geneva, Tahoma, sans-serif;
     color: lightslategray;
     flex-wrap: wrap;
 }
 
+button {
+    cursor: pointer;
+}
+
+#content::after {
+    content: '';
+    flex: auto;
+}
+
 .todo-wrapper {
-    max-width: 32%;
-    margin: 0 1%;
-    flex-grow: 1;
+    flex: 0 1 400px;
+    margin-bottom: 30px;
+    position: relative;
 }
 
 .todo-wrapper > ul {
@@ -19,6 +30,7 @@
 }
 
 .todo-wrapper > ul > li {
+    position: relative;
     border-bottom: 1px solid rgb(185, 185, 185);
     padding: 15px;
 }
@@ -42,4 +54,20 @@ h3 {
     text-decoration: line-through;
     color: rgb(177, 177, 177);
     font-style: italic;
+}
+
+.delete-project,
+.js-delete-item {
+    position: absolute;
+    right: 0;
+}
+
+.js-delete-item {
+    border: 0;
+    border-radius: 100%;
+}
+
+.break {
+    flex-basis: 100%;
+    margin: 20px;
 }
