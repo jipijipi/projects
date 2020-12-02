@@ -50,3 +50,9 @@ let calc = (() => {
     return { add, sub, mul, div };
 })();
 console.log(calc);
+
+document.querySelectorAll('.last-days').forEach((x) => {
+    let container = document.createElement('div');
+    container.innerHTML = '<img src="https://d3i3cp443mmogz.cloudfront.net/public/home-sowefund/derniers-jours-pour-investir.png" class="yi">';
+    x.append(container);
+});
