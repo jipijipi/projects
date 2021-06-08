@@ -1,4 +1,8 @@
 #wrapper {
     text-align: center;
-    margin-top: 25%;
+    margin-top: 15%;
+}
+
+#conditionIcon {
+    margin: 0 auto;
 }

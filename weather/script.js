@@ -3,7 +3,9 @@ console.log('start');
 async function fetchWeatherData(location) {
     let data = await fetch(`http://api.openweathermap.org/data/2.5/weather?q=${location}&units=metric&appid=056ab298b626bc49cbfab81f54e9bb97`);
     let formattedData = await data.json();
+    console.log(formattedData);
     console.log(dataParse(formattedData));
+    changeInfo(dataParse(formattedData));
 }
 
 fetchWeatherData('paris');
@@ -14,7 +16,19 @@ function dataParse(json) {
         temperature: json.main.temp,
         cloudy: json.clouds.all,
         windy: json.wind.speed,
+        condition: json.weather[0].description,
+        icon: json.weather[0].icon,
     };
+}
+
+function changeInfo(obj) {
+    let title = document.body.querySelector('h1');
+    let condition = document.body.querySelector('h2');
+    let icon = document.body.querySelector('#conditionIcon');
+
+    title.innerHTML = obj.city;
+    condition.innerHTML = obj.condition;
+    icon.src = `http://openweathermap.org/img/wn/${obj.icon}@2x.png`;
 }
 
 let submitButton = document.body.querySelector('#queryBtn');
