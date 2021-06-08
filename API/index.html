@@ -4,11 +4,83 @@
 <head>
   <meta charset="UTF-8">
   <title>Document</title>
+  <style>
+    button {
+      display: block;
+    }
+  </style>
 </head>
 
 <body>
+  <button>F</button>
   <img src="#" />
   <script>
+    const img = document.querySelector('img');
+    const btn = document.querySelector('button');
+
+
+    async function fetchGif() {
+      fetch('https://api.giphy.com/v1/gifs/translate?api_key=BR3PGf4xYpWxNP1SnQHfAtzMtdTuciFR&s=cats', { mode: 'cors' })
+        .then(function (response) {
+          return response.json();
+        })
+        .then(function (response) {
+          img.src = response.data.images.original.url;
+        });
+    }
+
+    btn.addEventListener("click", fetchIMGs);
+
+    fetchGif();
+
+    function fetchIMGs() {
+      fetch('https://api.nasa.gov/mars-photos/api/v1/rovers/curiosity/photos?sol=3140&api_key=tsAXiGbe3fsNqEVX67kXjMHerulpBB49HoKDLOPa')
+        .then(response => response.json())
+        .then(data => insertIMGfromObj(data))
+        .catch(error => alert(`error :${error}`));
+    }
+
+    function insertIMGfromArr(array) {
+      for (let i in array) {
+        insertIMG(array[i].download_url);
+      }
+    }
+
+    function insertIMGfromObj(object) {
+      for (let i in object.photos) {
+        insertIMG(object.photos[i].img_src);
+        insertCaption(object.photos[i].camera.full_name);
+      }
+    }
+
+    function insertIMG(imgURL) {
+      const img = document.createElement('IMG');
+      img.src = imgURL;
+      document.body.appendChild(img);
+    }
+
+    function insertCaption(text) {
+      const caption = document.createElement('P');
+      caption.innerText = text;
+      document.body.appendChild(caption);
+    }
+
+    const p = document.createElement('P');
+    p.setAttribute('id', 'quote');
+    p.innerText = '';
+    document.body.appendChild(p);
+
+    function addQuote() {
+
+
+      fetch('https://game-of-thrones-quotes.herokuapp.com/v1/random')
+        .then(response => response.json())
+        .then(data => p.innerText = `${data.sentence} \n ${data.character.name}\n ${data.character.house.name}`)
+        .catch(error => console.log(`error : ${error}`));
+
+    }
+
+
   </script>
 </body>
 
