@@ -1,14 +1,16 @@
 var url = require('url');
-var adr = 'http://localhost:8080/default.htm?year=2017&month=february';
-var q = url.parse(adr, true);
 var fs = require('fs');
+var uc = require('upper-case');
 
-console.log(q.host); //returns 'localhost:8080'
-console.log(q.pathname); //returns '/default.htm'
-console.log(q.search); //returns '?year=2017&month=february'
+// var adr = 'http://localhost:8080/default.htm?year=2017&month=february';
+// var q = url.parse(adr, true);
 
-var qdata = q.query; //returns an object: { year: 2017, month: 'february' }
-console.log(qdata.month); //returns 'february'
+// noconsole.log(q.host); //returns 'localhost:8080'
+// console.log(q.pathname); //returns '/default.htm'
+// console.log(q.search); //returns '?year=2017&month=february'
+
+// var qdata = q.query; //returns an object: { year: 2017, month: 'february' }
+// console.log(qdata.month); //returns 'february'
 
 function pageMakr(obj) {
     for (let [key, value] of Object.entries(obj)) {
@@ -23,7 +25,7 @@ function pageMakr(obj) {
         </head>
 
         <body>
-        <h1>${key.toUpperCase()}</h1>
+        <h1>${uc.upperCase(key)}</h1>
         <p>I love ${value.feature} in the ${key} time</p>
         </body>
 
