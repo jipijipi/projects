@@ -6,10 +6,11 @@ const host = 'localhost';
 const port = 8080;
 
 const requestListener = function (req, res) {
-    filename = req.url + '.html';
+    filename = req.url.substring(1) + '.html';
     console.log(filename);
-    fs.readFile(filename.substring(1), function (err, data) {
+    fs.readFile(filename, function (err, data) {
         if (err) {
+            console.log(err);
             res.writeHead(404, { 'Content-Type': 'text/html' });
             return res.end('404 Not Found');
         }
