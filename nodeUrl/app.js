@@ -24,14 +24,14 @@ function pageMakr(obj) {
 
         <body>
         <h1>${key.toUpperCase()}</h1>
-        <p>I love ${value.feature}</p>
+        <p>I love ${value.feature} in the ${key} time</p>
         </body>
 
         </html>`;
 
         fs.writeFile(`${key}.html`, template, function (err) {
             if (err) throw err;
-            console.log('done!');
+            console.log(`${key} done!`);
         });
 
         console.log(template);
