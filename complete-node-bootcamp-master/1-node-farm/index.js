@@ -1,5 +1,6 @@
 const fs = require('fs');
 const http = require('http');
+const url = require('url');
 
 //synchronous way
 
@@ -32,8 +33,18 @@ console.log('read-first'); */
 //SERVER
 
 const server = http.createServer((req, res) => {
-    console.log(res);
-    res.end('yellowwuw');
+    console.log(req.url);
+
+    const pathName = req.url;
+
+    if (pathName == '/overview') {
+        res.writeHead(418, { 'Content-type': 'text/html', 'Memememe': 'Moooh' });
+        res.end('overview');
+    } else {
+        res.end(pathName);
+    }
+
+    //res.end('yellowwuw');
 })
 
 server.listen(8000, () => {
