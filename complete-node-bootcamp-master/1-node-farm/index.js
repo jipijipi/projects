@@ -32,6 +32,9 @@ console.log('read-first'); */
 
 //SERVER
 
+const data = fs.readFileSync(`${__dirname}/starter/dev-data/data.json`, 'utf-8');
+const productData = JSON.parse(data);
+
 const server = http.createServer((req, res) => {
     console.log(req.url);
 
@@ -40,6 +43,20 @@ const server = http.createServer((req, res) => {
     if (pathName == '/overview') {
         res.writeHead(418, { 'Content-type': 'text/html', 'Memememe': 'Moooh' });
         res.end('overview');
+    } else if (pathName == '/api') {
+        console.log('reee');
+        console.log(productData);
+        res.writeHead(200, { 'Content-type': 'application/json' })
+        res.end(data);
+
+    } else if (pathName == '/web') {
+        console.log('web');
+        fs.readFile(`${__dirname}/starter/templates/overview.html`, 'utf-8', (err, data) => {
+            res.writeHead(200, { 'Content-type': 'text/html' });
+            res.end(data);
+        });
+
+
     } else {
         res.end(pathName);
     }
