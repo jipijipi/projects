@@ -32,6 +32,9 @@ console.log('read-first'); */
 
 //SERVER
 
+
+const tempProduct = fs.readFileSync(`${__dirname}/starter/templates/template-product.html`, 'utf-8');
+const tempOverview = fs.readFileSync(`${__dirname}/starter/templates/template-overview.html`, 'utf-8');
 const data = fs.readFileSync(`${__dirname}/starter/dev-data/data.json`, 'utf-8');
 const productData = JSON.parse(data);
 
@@ -40,9 +43,13 @@ const server = http.createServer((req, res) => {
 
     const pathName = req.url;
 
+    //overview page
     if (pathName == '/overview') {
-        res.writeHead(418, { 'Content-type': 'text/html', 'Memememe': 'Moooh' });
-        res.end('overview');
+        res.writeHead(200, { 'Content-type': 'text/html' });
+
+        const productCards = productData.map(x => replaceProduct(x))
+        res.end(tempOverview);
+
     } else if (pathName == '/api') {
         console.log('reee');
         console.log(productData);
