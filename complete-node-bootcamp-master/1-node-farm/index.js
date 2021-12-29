@@ -1,6 +1,7 @@
 const fs = require('fs');
 const http = require('http');
 const url = require('url');
+const replaceTemplate = require('./modules/replaceTemplates');
 
 //synchronous way
 
@@ -20,6 +21,7 @@ console.log(`"${textOut}" has been written to path : ${newFile}`) */
     fs.readFile(`./starter/txt/${data1}.txt`, 'utf-8', (err, data2) => {
         fs.readFile(`./starter/txt/append.txt`, 'utf-8', (err, data3) => {
             console.log(data3);
+        
 
             fs.writeFile('./starter/txt/outputbis.txt', `${data2} \n ${data3}`, 'utf-8', (err, data4) => {
                 console.log('done');
