@@ -32,7 +32,7 @@ console.log('read-first'); */
 
 //SERVER
 
-const replaceProduct(temp, product){
+const replaceProduct = (temp, product) => {
     let output = temp.replace(/{{PRODUCTNAME}}/g, product.productName);
     output = output.replace(/{{IMAGE}}/g, product.image);
     output = output.replace(/{{PRICE}}/g, product.price);
@@ -42,10 +42,11 @@ const replaceProduct(temp, product){
     output = output.replace(/{{DESCRIPTION}}/g, product.description);
     output = output.replace(/{{ID}}/g, product.id);
 
-    if (!product.organic) output = output.replace(/{{NOT_ORGANIC}}/g, 'not-organic');
+    if (!product.organic) output = output.replace(/{{NOTORGANIC}}/g, 'not-organic');
     return output;
 }
 
+const tempCard = fs.readFileSync(`${__dirname}/starter/templates/template-card.html`, 'utf-8');
 const tempProduct = fs.readFileSync(`${__dirname}/starter/templates/template-product.html`, 'utf-8');
 const tempOverview = fs.readFileSync(`${__dirname}/starter/templates/template-overview.html`, 'utf-8');
 const data = fs.readFileSync(`${__dirname}/starter/dev-data/data.json`, 'utf-8');
@@ -60,8 +61,10 @@ const server = http.createServer((req, res) => {
     if (pathName == '/overview') {
         res.writeHead(200, { 'Content-type': 'text/html' });
 
-        const productCards = productData.map(x => replaceProduct(x))
-        res.end(tempOverview);
+        const productCards = productData.map(x => replaceProduct(tempCard, x)).join('');
+        const output = tempOverview.replace(/{{PRODUCTCARD}}/g, productCards);
+        console.log(productCards);
+        res.end(output);
 
     } else if (pathName == '/api') {
         console.log('reee');
