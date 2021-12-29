@@ -1,6 +1,9 @@
 const fs = require('fs');
 const http = require('http');
 const url = require('url');
+
+const slugify = require('slugify');
+
 const replaceTemplate = require('./modules/replaceTemplates');
 
 //synchronous way
@@ -42,6 +45,10 @@ const tempOverview = fs.readFileSync(`${__dirname}/starter/templates/template-ov
 const data = fs.readFileSync(`${__dirname}/starter/dev-data/data.json`, 'utf-8');
 const productData = JSON.parse(data);
 
+const slugs = productData.map(x => slugify(x.productName, { lower: true }))
+
+console.log(slugs);
+
 const server = http.createServer((req, res) => {
 
     console.log(req.url);
@@ -80,7 +87,7 @@ const server = http.createServer((req, res) => {
 
 
     } else {
-        res.end(pathname);
+        res.end(pathname + 'ddd');
     }
 
     //res.end('yellowwuw');
