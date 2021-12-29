@@ -53,35 +53,44 @@ const data = fs.readFileSync(`${__dirname}/starter/dev-data/data.json`, 'utf-8')
 const productData = JSON.parse(data);
 
 const server = http.createServer((req, res) => {
-    console.log(req.url);
 
-    const pathName = req.url;
+    console.log(req.url);
+    console.log(url.parse(req.url, true));
+
+    const { query, pathname } = url.parse(req.url, true);
+
 
     //overview page
-    if (pathName == '/overview') {
+    if (pathname == '/overview') {
         res.writeHead(200, { 'Content-type': 'text/html' });
 
         const productCards = productData.map(x => replaceProduct(tempCard, x)).join('');
         const output = tempOverview.replace(/{{PRODUCTCARD}}/g, productCards);
-        console.log(productCards);
         res.end(output);
 
-    } else if (pathName == '/api') {
-        console.log('reee');
-        console.log(productData);
+    } else if (pathname == '/api') {
         res.writeHead(200, { 'Content-type': 'application/json' })
         res.end(data);
 
-    } else if (pathName == '/web') {
-        console.log('web');
+    } else if (pathname == '/web') {
         fs.readFile(`${__dirname}/starter/templates/overview.html`, 'utf-8', (err, data) => {
             res.writeHead(200, { 'Content-type': 'text/html' });
             res.end(data);
         });
 
 
+    } else if (pathname == '/product') {
+        res.writeHead(200, { 'Content-type': 'text/html' });
+
+        const product = productData[query.id];
+        const output = replaceProduct(tempProduct, product);
+        console.log(productData);
+        console.log(product);
+        res.end(output);
+
+
     } else {
-        res.end(pathName);
+        res.end(pathname);
     }
 
     //res.end('yellowwuw');
