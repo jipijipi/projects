@@ -1,24 +1,42 @@
+const { rejects } = require('assert');
 const fs = require('fs');
 const superagent = require('superagent');
 
-const readFilePro = file => {
-    return new Promise();
+const readFilePromise = file => {
+    return new Promise((resolve, reject) => {
+        fs.readFile(file, (err, data) => {
+            if (err) reject(`${err} cant find shit`);
+            resolve(data);
+        })
+    });
 }
 
-fs.readFile(`${__dirname}/starter/dog.txt`, (err, data) => {
-    console.log(`Breed : ${data}`);
+const writeFilePromise = (file, data) => {
+    return new Promise((resolve, reject) => {
+        fs.writeFile(file, data, err => {
+            if (err) reject('cant just');
+            resolve('success');
+        })
+    })
+}
+readFilePromise(`${__dirname}/starter/dog.txt`).then(data => {
 
-    superagent.get(`https://dog.ceo/api/breed/${data}/images/random`).then(res => {
-
-        if (err) return
+    return superagent.get(`https://dog.ceo/api/breed/${data}/images/random`)
+})
+    .then(res => {
 
         console.log(res.body.message);
 
-        fs.writeFile('dog-img.txt', res.body.message, x => {
-            console.log('file created');
-        })
+        return writeFilePromise('dog-img.txt', res.body.message);
 
-    }).catch(err => {
+    })
+
+    .then(() => {
+        console.log('it works');
+    })
+
+    .catch(err => {
         console.log(err.message);
     });
-})
+
+
