@@ -35,13 +35,33 @@ const getDogPic = async () => {
 
     } catch (err) {
 
-        console.log(err.message);
+        console.log(err + ' 😱');
+        throw (err);
 
     }
-}
+    return '2 : Ready !'
+};
 
-getDogPic();
+(async () => {
+    try {
+        console.log('1: will get pic');
+        console.log(await getDogPic());
+        console.log('3: done fo real!');
 
+    } catch (err) {
+        console.log('error 😬');
+    }
+})();
+
+// console.log('1: will get pic');
+
+// getDogPic().then(x => {
+//     console.log(x);
+//     console.log('3: done fo real!');
+
+// });
+
+// console.log('2: done pic!');
 // readFilePromise(`${__dirname}/starter/dog.txt`).then(data => {
 
 //     return superagent.get(`https://dog.ceo/api/breed/${data}/images/random`)
