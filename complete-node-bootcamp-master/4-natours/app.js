@@ -84,11 +84,9 @@ app.delete('/api/v1/tours/:id', (req, res) => {
         })
     }
 
-    res.status(200).json({
+    res.status(204).json({
         status: 'success',
-        data: {
-            tour: 'updated here',
-        }
+        data: null,
     })
 })
 
