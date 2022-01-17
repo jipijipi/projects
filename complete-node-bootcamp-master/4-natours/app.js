@@ -62,6 +62,34 @@ app.post('/api/v1/tours', (req, res) => {
 
 app.patch('/api/v1/tours/:id', (req, res) => {
 
+    if (!tours.find(el => el.id === + req.params['id'])) {
+        return res.status(404).json({
+            status: 'ID not found bruh',
+        })
+    }
+
+    res.status(200).json({
+        status: 'success',
+        data: {
+            tour: 'updated here',
+        }
+    })
+})
+
+app.delete('/api/v1/tours/:id', (req, res) => {
+
+    if (!tours.find(el => el.id === + req.params['id'])) {
+        return res.status(404).json({
+            status: 'ID not found bruh',
+        })
+    }
+
+    res.status(200).json({
+        status: 'success',
+        data: {
+            tour: 'updated here',
+        }
+    })
 })
 
 const port = 3000;
