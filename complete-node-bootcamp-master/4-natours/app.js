@@ -6,6 +6,18 @@ const app = express();
 
 app.use(express.json())
 
+app.use((req, res, next) => {
+    console.log('heyyyy');
+    next();
+})
+
+app.use((req, res, next) => {
+    const now = new Date();
+    req.requestTime = now.toISOString();
+
+    next();
+})
+
 // app.get('/', (req, res) => {
 //     res.status(418).json({ message: 'Hello from the other side', app: 'Natours', })
 // })
@@ -17,8 +29,9 @@ app.use(express.json())
 const tours = JSON.parse(fs.readFileSync(`${__dirname}/starter/dev-data/data/tours-simple.json`));
 
 const getAllTours = (req, res) => {
+    console.log(req.requestTime);
     res.status(200).json({
-        status: 'succes',
+        status: `succes at ${req.requestTime}`,
         results: tours.length,
         data: { tours }
     });
