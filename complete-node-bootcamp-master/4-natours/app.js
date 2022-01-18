@@ -1,8 +1,15 @@
 const express = require('express');
 const fs = require('fs');
+const morgan = require('morgan');
+
 const { get } = require('http');
 
 const app = express();
+
+
+//middlewares
+
+app.use(morgan('dev'));
 
 app.use(express.json())
 
@@ -18,13 +25,9 @@ app.use((req, res, next) => {
     next();
 })
 
-// app.get('/', (req, res) => {
-//     res.status(418).json({ message: 'Hello from the other side', app: 'Natours', })
-// })
 
-// app.post('/', (req, res) => {
-//     res.send('You can post here');
-// })
+
+//route handlers
 
 const tours = JSON.parse(fs.readFileSync(`${__dirname}/starter/dev-data/data/tours-simple.json`));
 
@@ -106,14 +109,14 @@ const deleteTour = (req, res) => {
     })
 };
 
-// app.get('/api/v1/tours', getAllTours);
-// app.get('/api/v1/tours/:id', getTour);
-// app.post('/api/v1/tours', addTour);
-// app.patch('/api/v1/tours/:id', updateTour);
-// app.delete('/api/v1/tours/:id', deleteTour);
+
+//routes
 
 app.route('/api/v1/tours').get(getAllTours).post(addTour);
 app.route('/api/v1/tours/:id').get(getTour).patch(updateTour).delete(deleteTour);
+
+//servers
+
 
 const port = 3000;
 
